@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calendario Espi-Team</title>
+  <link rel="icon" type="image/png" href="https://github.com/MatiasH2804/Calendario-Area/blob/main/Grupo%20Misionero%20(1).png?raw=true" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -12,8 +13,15 @@
     <header class="hero">
       <div>
         <p class="eyebrow">Espiritualidad</p>
-        <h1>Calendario Espi-Team</h1>
-        <p class="subtitle">Oraciones, misiones y encuentros del equipo.</p>
+        <h1 class="title-with-logo">
+  Calendario Espi-Team
+  <img
+    src="https://github.com/MatiasH2804/Calendario-Area/blob/main/Grupo%20Misionero%20(1).png?raw=true"
+    alt="Logo Espi Team"
+    class="hero-logo"
+  />
+</h1>
+        <p class="subtitle">Calendario donde anotamos nuestras oraciones</p>
       </div>
 
       <button id="btnSync" class="top-button">Actualizar</button>
@@ -23,13 +31,21 @@
       <span id="status">Cargando calendario...</span>
     </section>
 
-    <section class="filters">
-      <input id="searchInput" type="search" placeholder="Buscar por título, estructura o encargado..." />
+    <section class="filters filters-calendar">
+  <input id="searchInput" type="search" placeholder="Buscar por título, estructura o encargado..." />
 
-      <select id="filterEstructura">
-        <option value="">Todas las estructuras</option>
-      </select>
-    </section>
+  <div class="year-month-filter">
+    <div id="yearButtons" class="year-buttons"></div>
+
+    <select id="filterMes" disabled>
+      <option value="">Primero elegí un año</option>
+    </select>
+
+    <button id="btnClearDateFilter" class="clear-date-btn" type="button">
+      Ver todo
+    </button>
+  </div>
+</section>
 <section class="admin-open-panel">
   <button id="btnOpenAdmin" class="top-button admin-main-btn">Cargar / editar oración</button>
 </section>
@@ -56,14 +72,7 @@
             <input class="doodle-input" name="titulo" placeholder="Título" required />
             <input class="doodle-input" name="fecha" type="date" required />
 
-            <select class="doodle-input" name="estructura" required>
-              <option value="">Estructura</option>
-              <option>Misión</option>
-              <option>Oración personal</option>
-              <option>Encuentro</option>
-              <option>Formación</option>
-              <option>Servicio</option>
-            </select>
+            <input class="doodle-input" name="estructura" placeholder="Estructura" required />
 
             <input class="doodle-input" name="encargados" placeholder="Encargados" />
             <input class="doodle-input" name="link" placeholder="Link de la oración" />
@@ -85,14 +94,7 @@
             <input class="doodle-input" name="titulo" placeholder="Título" required />
             <input class="doodle-input" name="fecha" type="date" required />
 
-            <select class="doodle-input" name="estructura" required>
-              <option value="">Estructura</option>
-              <option>Misión</option>
-              <option>Oración personal</option>
-              <option>Encuentro</option>
-              <option>Formación</option>
-              <option>Servicio</option>
-            </select>
+            <input class="doodle-input" name="estructura" placeholder="Estructura" required />
 
             <input class="doodle-input" name="encargados" placeholder="Encargados" />
             <input class="doodle-input" name="link" placeholder="Link de la oración" />
