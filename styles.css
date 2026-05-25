@@ -1,0 +1,920 @@
+:root {
+  --page-bg: #f5f1e8;
+  --page-text: #050505;
+  --page-muted: #5d574f;
+  --panel-bg: #ffffff;
+  --panel-border: #050505;
+  --primary: #ff3e00;
+  --primary-hover: #ff6d43;
+  --secondary: #4d61ff;
+  --secondary-hover: #5e70ff;
+  --accent: #00e0b0;
+  --shadow-color: #000000;
+  --pattern-color: #cfcfcf;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--page-text);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(255, 62, 0, 0.14), transparent 28rem),
+    radial-gradient(circle at 85% 20%, rgba(77, 97, 255, 0.16), transparent 30rem),
+    linear-gradient(180deg, #fff9eb, var(--page-bg));
+}
+
+.app {
+  width: min(1280px, 100%);
+  margin: 0 auto;
+  padding: 22px;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 16px;
+  padding: 24px;
+  background: var(--panel-bg);
+  border: 0.28em solid var(--panel-border);
+  border-radius: 0.8em;
+  box-shadow: 0.55em 0.55em 0 var(--shadow-color);
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+}
+
+.subtitle {
+  margin: 10px 0 0;
+  color: var(--page-muted);
+  font-weight: 650;
+}
+
+.top-button,
+button {
+  position: relative;
+  background: var(--secondary);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 900;
+  padding: 0.8em 1.2em;
+  border: 0.2em solid var(--page-text);
+  border-radius: 0.45em;
+  box-shadow: 0.3em 0.3em 0 var(--shadow-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.top-button:hover,
+button:hover {
+  background: var(--secondary-hover);
+  transform: translate(-0.1em, -0.1em);
+  box-shadow: 0.4em 0.4em 0 var(--shadow-color);
+}
+
+.status-card {
+  margin: 0 0 14px;
+  padding: 13px 16px;
+  background: #ffffff;
+  border: 0.18em solid var(--page-text);
+  border-radius: 0.55em;
+  box-shadow: 0.25em 0.25em 0 var(--shadow-color);
+  color: var(--page-muted);
+  font-weight: 800;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+input,
+select {
+  width: 100%;
+  border: 0.18em solid var(--page-text);
+  background: white;
+  border-radius: 0.55em;
+  padding: 13px 15px;
+  font-size: 1rem;
+  outline: none;
+  font-weight: 700;
+  box-shadow: 0.2em 0.2em 0 var(--shadow-color);
+}
+
+input:focus,
+select:focus {
+  box-shadow: 0.3em 0.3em 0 var(--primary);
+}
+
+.calendar-list {
+  display: grid;
+  gap: 28px;
+}
+
+.month-group {
+  display: grid;
+  gap: 16px;
+}
+
+.month-heading {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--accent);
+  border: 0.22em solid var(--page-text);
+  border-radius: 0.5em;
+  box-shadow: 0.3em 0.3em 0 var(--shadow-color);
+  text-transform: uppercase;
+  font-weight: 950;
+}
+
+.month-heading small {
+  padding: 4px 8px;
+  background: white;
+  border: 0.13em solid var(--page-text);
+  border-radius: 0.35em;
+  font-size: 0.72rem;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+  gap: 28px;
+  align-items: stretch;
+}
+
+/* Adaptado desde Uiverse.io by seoulchik */
+.card {
+  --primary: #ff3e00;
+  --primary-hover: #ff6d43;
+  --secondary: #4d61ff;
+  --secondary-hover: #5e70ff;
+  --accent: #00e0b0;
+  --text: #050505;
+  --bg: #ffffff;
+  --shadow-color: #000000;
+  --pattern-color: #cfcfcf;
+
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  background: var(--bg);
+  border: 0.35em solid var(--text);
+  border-radius: 0.6em;
+  box-shadow:
+    0.7em 0.7em 0 var(--shadow-color),
+    inset 0 0 0 0.15em rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  transform-origin: center;
+}
+
+.card:hover {
+  transform: translate(-0.4em, -0.4em) scale(1.02);
+  box-shadow: 1em 1em 0 var(--shadow-color);
+}
+
+.card:hover .card-pattern-grid,
+.card:hover .card-overlay-dots {
+  opacity: 1;
+}
+
+.card:active {
+  transform: translate(0.1em, 0.1em) scale(0.98);
+  box-shadow: 0.5em 0.5em 0 var(--shadow-color);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  right: -1em;
+  width: 4em;
+  height: 4em;
+  background: var(--accent);
+  transform: rotate(45deg);
+  z-index: 1;
+}
+
+.card::after {
+  content: "★";
+  position: absolute;
+  top: 0.4em;
+  right: 0.4em;
+  color: var(--text);
+  font-size: 1.2em;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.card-pattern-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 0.5em 0.5em;
+  pointer-events: none;
+  opacity: 0.5;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.card-overlay-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--pattern-color) 1px, transparent 1px);
+  background-size: 1em 1em;
+  background-position: -0.5em -0.5em;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.bold-pattern {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 6em;
+  height: 6em;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-title-area {
+  position: relative;
+  padding: 1.4em;
+  background: var(--primary);
+  color: var(--bg);
+  font-weight: 800;
+  font-size: 1.05em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8em;
+  border-bottom: 0.35em solid var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.card-title-area > span:first-child {
+  position: relative;
+  z-index: 2;
+  line-height: 1.15;
+}
+
+.card-title-area::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.1) 0.5em,
+    transparent 0.5em,
+    transparent 1em
+  );
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.card-tag {
+  position: relative;
+  z-index: 2;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.58em;
+  font-weight: 900;
+  padding: 0.4em 0.8em;
+  border: 0.15em solid var(--text);
+  border-radius: 0.3em;
+  box-shadow: 0.2em 0.2em 0 var(--shadow-color);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transform: rotate(3deg);
+  transition: all 0.3s ease;
+  max-width: 42%;
+  text-align: center;
+}
+
+.card:hover .card-tag {
+  transform: rotate(-2deg) scale(1.08);
+  box-shadow: 0.25em 0.25em 0 var(--shadow-color);
+}
+
+.card-body {
+  position: relative;
+  padding: 1.5em;
+  z-index: 2;
+}
+
+.card-description {
+  margin: 0 0 1.5em;
+  color: var(--text);
+  font-size: 0.95em;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+  margin-bottom: 1.5em;
+}
+
+.feature-item {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  transition: transform 0.2s ease;
+}
+
+.feature-item:hover {
+  transform: translateX(0.3em);
+}
+
+.feature-icon {
+  width: 1.7em;
+  height: 1.7em;
+  flex: 0 0 1.7em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--secondary);
+  border: 0.12em solid var(--text);
+  border-radius: 0.3em;
+  box-shadow: 0.2em 0.2em 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  font-size: 0.9em;
+}
+
+.feature-item:hover .feature-icon {
+  background: var(--secondary-hover);
+  transform: rotate(-5deg);
+}
+
+.feature-text {
+  min-width: 0;
+  font-size: 0.82em;
+  font-weight: 750;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+  margin-top: 1.5em;
+  padding-top: 1.2em;
+  border-top: 0.15em dashed rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.card-actions::before {
+  content: "✂";
+  position: absolute;
+  top: -0.8em;
+  left: 50%;
+  transform: translateX(-50%) rotate(90deg);
+  background: var(--bg);
+  padding: 0 0.5em;
+  font-size: 1em;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.price {
+  position: relative;
+  font-size: 1.45em;
+  font-weight: 900;
+  color: var(--text);
+  background: var(--bg);
+  text-transform: uppercase;
+}
+
+.price::before {
+  content: "";
+  position: absolute;
+  bottom: 0.15em;
+  left: 0;
+  width: 100%;
+  height: 0.2em;
+  background: var(--accent);
+  z-index: -1;
+  opacity: 0.5;
+}
+
+.price-currency {
+  font-size: 0.6em;
+  font-weight: 800;
+  vertical-align: top;
+  margin-right: 0.1em;
+}
+
+.price-period {
+  display: block;
+  font-size: 0.4em;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.65);
+  margin-top: 0.2em;
+}
+
+.card-button {
+  position: relative;
+  background: var(--secondary);
+  color: var(--bg);
+  font-size: 0.82em;
+  font-weight: 800;
+  padding: 0.7em 1.2em;
+  border: 0.2em solid var(--text);
+  border-radius: 0.4em;
+  box-shadow: 0.3em 0.3em 0 var(--shadow-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.card-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 100%
+  );
+  transition: left 0.6s ease;
+}
+
+.card-button:hover {
+  background: var(--secondary-hover);
+  transform: translate(-0.1em, -0.1em);
+  box-shadow: 0.4em 0.4em 0 var(--shadow-color);
+}
+
+.card-button:hover::before {
+  left: 100%;
+}
+
+.card-button:active {
+  transform: translate(0.1em, 0.1em);
+  box-shadow: 0.15em 0.15em 0 var(--shadow-color);
+}
+
+.card-button-disabled {
+  background: #9b9b9b;
+  cursor: default;
+  pointer-events: none;
+}
+
+.dots-pattern {
+  position: absolute;
+  bottom: 2em;
+  left: -2em;
+  width: 8em;
+  height: 4em;
+  opacity: 0.3;
+  transform: rotate(-10deg);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.accent-shape {
+  position: absolute;
+  width: 2.5em;
+  height: 2.5em;
+  background: var(--secondary);
+  border: 0.15em solid var(--text);
+  border-radius: 0.3em;
+  transform: rotate(45deg);
+  bottom: -1.2em;
+  right: 2em;
+  z-index: 0;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .accent-shape {
+  transform: rotate(55deg) scale(1.1);
+}
+
+.stamp {
+  position: absolute;
+  bottom: 1.5em;
+  left: 1.5em;
+  width: 4em;
+  height: 4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.15em solid rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  transform: rotate(-15deg);
+  opacity: 0.16;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.stamp-text {
+  font-size: 0.6em;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.corner-slice {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 1.5em;
+  height: 1.5em;
+  background: var(--bg);
+  border-right: 0.25em solid var(--text);
+  border-top: 0.25em solid var(--text);
+  border-radius: 0 0.5em 0 0;
+  z-index: 1;
+}
+
+.empty {
+  padding: 26px;
+  text-align: center;
+  background: white;
+  color: var(--page-muted);
+  border: 0.2em solid var(--page-text);
+  border-radius: 0.6em;
+  box-shadow: 0.35em 0.35em 0 var(--shadow-color);
+  font-weight: 900;
+}
+
+@media (max-width: 760px) {
+  .app {
+    padding: 14px;
+  }
+
+  .hero {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 18px;
+  }
+
+  .filters {
+    grid-template-columns: 1fr;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card {
+    font-size: 0.93rem;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .card-button {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
+.hidden {
+  display: none !important;
+}
+
+.admin-open-panel {
+  margin: 0 0 22px;
+}
+
+.admin-main-btn {
+  background: var(--primary);
+}
+
+.admin-main-btn:hover {
+  background: var(--primary-hover);
+}
+
+.admin-panel {
+  margin: 0 0 30px;
+  padding: 28px 18px;
+  background: #ffffff;
+  border: 0.25em solid var(--page-text);
+  border-radius: 0.8em;
+  box-shadow: 0.45em 0.45em 0 var(--shadow-color);
+}
+
+/* From Uiverse.io by mamyapro123 - adaptado */
+.doodle-wrapper {
+  --ink: #323232;
+  --paper-front: #fff9e6;
+  --paper-back: #e6f0ff;
+  --bg-color: #ffffff;
+  --primary-btn: #ff6b6b;
+  --primary-btn-hover: #ff5252;
+  --secondary-btn: #4ecdc4;
+  --secondary-btn-hover: #3bbfb6;
+  --switch-bg: #ffe66d;
+  --input-focus: #2d8cf0;
+
+  --card-width: min(94vw, 420px);
+  --card-height: 640px;
+  --input-width: min(340px, 100%);
+  --input-height: 40px;
+  --btn-width: 150px;
+  --btn-height: 42px;
+
+  --border-width: 2px;
+  --shadow-offset: 4px;
+
+  --sketch-radius-1: 8px 24px 8px 24px / 24px 8px 24px 8px;
+  --sketch-radius-2: 24px 8px 24px 8px / 8px 24px 8px 24px;
+  --sketch-radius-btn: 16px 5px 16px 5px / 5px 16px 5px 16px;
+
+  font-family: "Comic Sans MS", "Chalkboard SE", "Marker Felt", "Gochi Hand", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.doodle-toggle {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.doodle-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+  z-index: 5;
+}
+
+.doodle-mode-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--ink);
+  transition: opacity 0.3s;
+}
+
+.doodle-toggle:not(:checked) ~ .doodle-header .signup-text {
+  opacity: 0.5;
+}
+
+.doodle-toggle:checked ~ .doodle-header .login-text {
+  opacity: 0.5;
+}
+
+.doodle-switch-label {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+  background-color: var(--switch-bg);
+  border: var(--border-width) solid var(--ink);
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0px var(--ink);
+}
+
+.doodle-switch-label:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px var(--ink);
+}
+
+.doodle-switch-handle {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  background-color: var(--bg-color);
+  border: var(--border-width) solid var(--ink);
+  border-radius: 50%;
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.doodle-toggle:checked ~ .doodle-header .doodle-switch-label .doodle-switch-handle {
+  transform: translateX(24px);
+}
+
+.doodle-card-scene {
+  position: relative;
+  perspective: 1000px;
+  width: var(--card-width);
+  height: var(--card-height);
+  z-index: 2;
+}
+
+.doodle-card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.doodle-toggle:checked ~ .doodle-card-scene .doodle-card-inner {
+  transform: rotateY(180deg);
+}
+
+.doodle-card-front,
+.doodle-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 22px;
+  box-sizing: border-box;
+  border: var(--border-width) solid var(--ink);
+  border-radius: var(--sketch-radius-1);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--ink);
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 28px,
+    rgba(0, 0, 0, 0.06) 28px,
+    rgba(0, 0, 0, 0.06) 30px
+  );
+  background-position: 0 15px;
+  overflow-y: auto;
+}
+
+.doodle-card-front {
+  background-color: var(--paper-front);
+}
+
+.doodle-card-back {
+  background-color: var(--paper-back);
+  transform: rotateY(180deg);
+  border-radius: var(--sketch-radius-2);
+}
+
+.doodle-title {
+  font-size: 25px;
+  font-weight: 900;
+  color: var(--ink);
+  margin: 10px 0 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transform: rotate(-3deg);
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.doodle-title-alt {
+  transform: rotate(2deg);
+}
+
+.doodle-form {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  width: 100%;
+  align-items: center;
+}
+
+.doodle-input {
+  width: var(--input-width);
+  min-height: var(--input-height);
+  padding: 7px 15px;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  background-color: var(--bg-color);
+  border: var(--border-width) solid var(--ink);
+  border-radius: var(--sketch-radius-1);
+  box-shadow: 3px 3px 0px var(--ink);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.doodle-textarea {
+  height: 74px;
+  resize: vertical;
+}
+
+.doodle-input:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0px var(--ink);
+}
+
+.doodle-input:focus,
+.doodle-input:focus-visible {
+  border: var(--border-width) solid var(--input-focus);
+  border-radius: var(--sketch-radius-2);
+  background-color: #fffdf5;
+  box-shadow: 4px 4px 0px var(--ink);
+}
+
+.doodle-btn {
+  margin: 12px 0;
+  width: var(--btn-width);
+  height: var(--btn-height);
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: var(--ink);
+  background-color: var(--primary-btn);
+  border: var(--border-width) solid var(--ink);
+  border-radius: var(--sketch-radius-btn);
+  box-shadow: 4px 4px 0px var(--ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  transform: rotate(-1deg);
+}
+
+.doodle-btn-alt {
+  background-color: var(--secondary-btn);
+  transform: rotate(1deg);
+}
+
+.doodle-btn:hover {
+  background-color: var(--primary-btn-hover);
+  transform: translateY(-2px) rotate(-2deg);
+  box-shadow: 5px 5px 0px var(--ink);
+}
+
+.doodle-btn-alt:hover {
+  background-color: var(--secondary-btn-hover);
+  transform: translateY(-2px) rotate(2deg);
+}
+
+.doodle-btn:active {
+  transform: translate(3px, 3px) rotate(0deg);
+  box-shadow: 0px 0px 0px var(--ink);
+}
+
+@media (max-width: 760px) {
+  .admin-panel {
+    padding: 22px 10px;
+  }
+
+  .doodle-header {
+    gap: 10px;
+  }
+
+  .doodle-mode-text {
+    font-size: 15px;
+  }
+
+  .doodle-wrapper {
+    --card-height: 680px;
+  }
+}

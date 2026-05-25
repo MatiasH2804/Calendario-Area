@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calendario Espi-Team</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <main class="app">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Espiritualidad</p>
+        <h1>Calendario Espi-Team</h1>
+        <p class="subtitle">Oraciones, misiones y encuentros del equipo.</p>
+      </div>
+
+      <button id="btnSync" class="top-button">Actualizar</button>
+    </header>
+
+    <section class="status-card">
+      <span id="status">Cargando calendario...</span>
+    </section>
+
+    <section class="filters">
+      <input id="searchInput" type="search" placeholder="Buscar por título, estructura o encargado..." />
+
+      <select id="filterEstructura">
+        <option value="">Todas las estructuras</option>
+      </select>
+    </section>
+<section class="admin-open-panel">
+  <button id="btnOpenAdmin" class="top-button admin-main-btn">Cargar / editar oración</button>
+</section>
+
+<section id="adminPanel" class="admin-panel hidden">
+  <div class="doodle-wrapper">
+    <input type="checkbox" id="doodle-flip" class="doodle-toggle" />
+
+    <div class="doodle-header">
+      <span class="doodle-mode-text login-text">Nueva oración</span>
+      <label class="doodle-switch-label" for="doodle-flip" tabindex="0">
+        <span class="doodle-switch-handle"></span>
+      </label>
+      <span class="doodle-mode-text signup-text">Editar</span>
+    </div>
+
+    <div class="doodle-card-scene">
+      <div class="doodle-card-inner">
+
+        <div class="doodle-card-front">
+          <div class="doodle-title">Cargar oración</div>
+
+          <form id="formCreate" class="doodle-form">
+            <input class="doodle-input" name="titulo" placeholder="Título" required />
+            <input class="doodle-input" name="fecha" type="date" required />
+
+            <select class="doodle-input" name="estructura" required>
+              <option value="">Estructura</option>
+              <option>Misión</option>
+              <option>Oración personal</option>
+              <option>Encuentro</option>
+              <option>Formación</option>
+              <option>Servicio</option>
+            </select>
+
+            <input class="doodle-input" name="encargados" placeholder="Encargados" />
+            <input class="doodle-input" name="link" placeholder="Link de la oración" />
+            <textarea class="doodle-input doodle-textarea" name="descripcion" placeholder="Descripción"></textarea>
+            <textarea class="doodle-input doodle-textarea" name="extra" placeholder="Información extra"></textarea>
+
+            <button class="doodle-btn" type="submit">Guardar</button>
+          </form>
+        </div>
+
+        <div class="doodle-card-back">
+          <div class="doodle-title doodle-title-alt">Editar oración</div>
+
+          <form id="formEdit" class="doodle-form">
+            <select id="editSelect" class="doodle-input" name="id" required>
+              <option value="">Elegir oración</option>
+            </select>
+
+            <input class="doodle-input" name="titulo" placeholder="Título" required />
+            <input class="doodle-input" name="fecha" type="date" required />
+
+            <select class="doodle-input" name="estructura" required>
+              <option value="">Estructura</option>
+              <option>Misión</option>
+              <option>Oración personal</option>
+              <option>Encuentro</option>
+              <option>Formación</option>
+              <option>Servicio</option>
+            </select>
+
+            <input class="doodle-input" name="encargados" placeholder="Encargados" />
+            <input class="doodle-input" name="link" placeholder="Link de la oración" />
+            <textarea class="doodle-input doodle-textarea" name="descripcion" placeholder="Descripción"></textarea>
+            <textarea class="doodle-input doodle-textarea" name="extra" placeholder="Información extra"></textarea>
+
+            <button class="doodle-btn doodle-btn-alt" type="submit">Actualizar</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+    <section id="calendarList" class="calendar-list"></section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
