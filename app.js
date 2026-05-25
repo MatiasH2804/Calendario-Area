@@ -9,7 +9,6 @@ let state = {
 const $list = document.getElementById('calendarList');
 const $status = document.getElementById('status');
 const $search = document.getElementById('searchInput');
-const $filter = document.getElementById('filterEstructura');
 const $btnSync = document.getElementById('btnSync');
 const $btnOpenAdmin = document.getElementById('btnOpenAdmin');
 const $adminPanel = document.getElementById('adminPanel');
@@ -17,18 +16,29 @@ const $formCreate = document.getElementById('formCreate');
 const $formEdit = document.getElementById('formEdit');
 const $editSelect = document.getElementById('editSelect');
 document.addEventListener('DOMContentLoaded', init);
+const $yearButtons = document.getElementById('yearButtons');
+const $filterMes = document.getElementById('filterMes');
+const $btnClearDateFilter = document.getElementById('btnClearDateFilter');
+
+let selectedYear = '';
+let selectedMonth = '';
 
 function init() {
   loadFromCache();
   syncData();
 
   $search.addEventListener('input', applyFilters);
-  $filter.addEventListener('change', applyFilters);
+  $filterMes.addEventListener('change', () => {
+    selectedMonth = $filterMes.value;
+    applyFilters();
+  });
+
+  $btnClearDateFilter.addEventListener('click', clearDateFilter);
   $btnSync.addEventListener('click', syncData);
   $btnOpenAdmin.addEventListener('click', toggleAdminPanel);
-$formCreate.addEventListener('submit', handleCreate);
-$formEdit.addEventListener('submit', handleEdit);
-$editSelect.addEventListener('change', fillEditForm);
+  $formCreate.addEventListener('submit', handleCreate);
+  $formEdit.addEventListener('submit', handleEdit);
+  $editSelect.addEventListener('change', fillEditForm);
 }
 
 function loadFromCache() {
@@ -39,7 +49,7 @@ function loadFromCache() {
   try {
     const parsed = JSON.parse(cached);
     state.items = normalizeItems(parsed.data || []);
-    renderStructureFilter();
+    renderYearFilter();
     applyFilters();
     renderEditOptions();
     setStatus('Calendario cargado desde caché. Sincronizando...');
@@ -64,11 +74,11 @@ async function syncData() {
       data: state.items
     }));
 
-    renderStructureFilter();
+    renderYearFilter();
     applyFilters();
     renderEditOptions();
 
-    setStatus(`Actualizado: ${state.items.length} registros.`);
+    setStatus('');
   } catch (error) {
     console.error(error);
 
@@ -113,32 +123,8 @@ function parseSheetDate(value) {
   return date;
 }
 
-function renderStructureFilter() {
-  const current = $filter.value;
-
-  const estructuras = [...new Set(
-    state.items
-      .map(item => item.estructura)
-      .filter(Boolean)
-  )].sort((a, b) => a.localeCompare(b, 'es'));
-
-  $filter.innerHTML = '<option value="">Todas las estructuras</option>';
-
-  estructuras.forEach(est => {
-    const option = document.createElement('option');
-    option.value = est;
-    option.textContent = est;
-    $filter.appendChild(option);
-  });
-
-  if ([...$filter.options].some(opt => opt.value === current)) {
-    $filter.value = current;
-  }
-}
-
 function applyFilters() {
   const q = $search.value.toLowerCase().trim();
-  const estructura = $filter.value;
 
   state.filtered = state.items.filter(item => {
     const text = [
@@ -150,10 +136,14 @@ function applyFilters() {
       item.mesAnioLabel
     ].join(' ').toLowerCase();
 
-    const matchText = !q || text.includes(q);
-    const matchEstructura = !estructura || item.estructura === estructura;
+    const itemYear = item.fechaObj ? String(item.fechaObj.getFullYear()) : '';
+    const itemMonth = item.fechaObj ? String(item.fechaObj.getMonth() + 1).padStart(2, '0') : '';
 
-    return matchText && matchEstructura;
+    const matchText = !q || text.includes(q);
+    const matchYear = !selectedYear || itemYear === selectedYear;
+    const matchMonth = !selectedMonth || itemMonth === selectedMonth;
+
+    return matchText && matchYear && matchMonth;
   });
 
   renderListGroupedByMonth();
@@ -293,6 +283,10 @@ function formatDate(date) {
 
 function setStatus(text) {
   $status.textContent = text;
+  const statusCard = $status.closest('.status-card');
+  if (statusCard) {
+    statusCard.classList.toggle('hidden-status', !text);
+  }
 }
 
 function capitalize(value) {
@@ -419,4 +413,78 @@ function toInputDate(date) {
   const day = String(date.getDate()).padStart(2, '0');
 
   return `${year}-${month}-${day}`;
+}
+function renderYearFilter() {
+  if (!$yearButtons || !$filterMes) return;
+
+  const years = [...new Set(
+    state.items
+      .map(item => item.fechaObj ? String(item.fechaObj.getFullYear()) : '')
+      .filter(Boolean)
+  )].sort();
+
+  $yearButtons.innerHTML = years.map(year => `
+    <button
+      type="button"
+      class="year-pill ${selectedYear === year ? 'active' : ''}"
+      data-year="${year}"
+    >
+      ${year}
+    </button>
+  `).join('');
+
+  $yearButtons.querySelectorAll('.year-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedYear = btn.dataset.year;
+      selectedMonth = '';
+      renderYearFilter();
+      renderMonthFilter();
+      applyFilters();
+    });
+  });
+
+  renderMonthFilter();
+}
+
+function renderMonthFilter() {
+  if (!$filterMes) return;
+
+  const meses = [
+    { value: '01', label: 'Enero' },
+    { value: '02', label: 'Febrero' },
+    { value: '03', label: 'Marzo' },
+    { value: '04', label: 'Abril' },
+    { value: '05', label: 'Mayo' },
+    { value: '06', label: 'Junio' },
+    { value: '07', label: 'Julio' },
+    { value: '08', label: 'Agosto' },
+    { value: '09', label: 'Septiembre' },
+    { value: '10', label: 'Octubre' },
+    { value: '11', label: 'Noviembre' },
+    { value: '12', label: 'Diciembre' }
+  ];
+
+  if (!selectedYear) {
+    $filterMes.disabled = true;
+    $filterMes.innerHTML = '<option value="">Primero elegí un año</option>';
+    return;
+  }
+
+  $filterMes.disabled = false;
+
+  $filterMes.innerHTML = `
+    <option value="">Todos los meses de ${selectedYear}</option>
+    ${meses.map(mes => `
+      <option value="${mes.value}" ${selectedMonth === mes.value ? 'selected' : ''}>
+        ${mes.label}
+      </option>
+    `).join('')}
+  `;
+}
+
+function clearDateFilter() {
+  selectedYear = '';
+  selectedMonth = '';
+  renderYearFilter();
+  applyFilters();
 }
